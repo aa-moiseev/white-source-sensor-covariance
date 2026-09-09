@@ -1,2 +1,2 @@
 # white-source-sensor-covariance
-M/EEG sensor covariance based on projected source white noise
+Python code for computing sensor-level covariance from uniformly distributed, randomly oriented, and uncorrelated brain sources, with an example application to real MEG data.
