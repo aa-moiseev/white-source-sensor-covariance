@@ -1,0 +1,113 @@
+# ----------------------------------------------------------------------
+# NOTE: this is a JSON file with comments. It requires using commentjson
+# module to process, instead of a standard python json library
+# ----------------------------------------------------------------------
+# Input and configuration parameters for noise_covariance_example.py
+# ----------------------------------------------------------------------
+{
+    "subject": "sub-0006",
+    "dsname": "sub-0006_SR200_1-100Hz_n60Hz_raw.fif",   # Original 275 ch CTF DS downsampled to 200 Hz
+    "data_root": "data",        # Full or relative path to the root MEG data location for all subjects
+    "verbose": "INFO",          # verbose level for MNE: 'INFO', 'WARNING", 'ERROR'
+
+    # What to do flags
+    "plot_org_topo": true,      # Create and show a topomap of the measured covariance
+    "plot_swn_cov": true,       # Create and show a plot of SWN covariance matrix
+    "plot_swn_eig": true,       # Create and show a plot of SWN eigenvalues (roots of)
+    "plot_swn_topo": true,      # Create and show a topomap plot of SWN cov diagonal
+
+    "dpi": 300,                 # DPI for png figures
+
+    "compute_covariance":       # Computing Covariance object from epoched data
+    {
+        "scalings":             # default null, which means mag=1e15, grad=1e13, eeg=1e6
+        {                         # We keep data in original units
+            "mag": 1, "grad": 1, "eeg": 1
+        }
+    },
+
+    "compute_swn_cov":          # Args for computing source white noise induced cov
+    {
+        "tol": 1e-2,
+        "rcond": 1e-10,
+        "max_rank": null
+    },
+
+    "cov_plot":                 # Args for Covariance.plot()
+    {
+        "exclude": [],          # exclude channels
+        "colorbar": true,
+        "proj": false,          # apply projectors
+        "show_svd": true,       # keep it always true in this example 
+        "show": true
+    },
+
+    "adjust_cov_plot":          # Additional parms for COV plot
+    {
+        "title": "Sensor covariance",   # or null to use default
+        "bar_title": "T^2",             # or null to use default
+        "xtitle": null,                 # null to use default
+        "ytitle": null,                 # null to use default
+        "clim": [-4.0e-27, 4.0e-27],    # These are for 0006, 1-100 Hz
+        "figsize": [8, 6],
+        "title_font_size": 18,
+        "axis_title_font_size": 18,
+        "ticks_font_size": 16
+    },
+
+    "adjust_svd_plot":          # Additional parms for EV plot
+    {
+        "title": "Square roots of eigenvalues",     # or null to use default
+        "xtitle": null,         # null to use default
+        "ytitle": "fT",         # null to use default
+        "ylim": [5e-3, 900],    # [ymin,ymax]; when null - use min, max value, respectively
+        "figsize": [8, 6],
+        "title_font_size": 18,
+        "axis_title_font_size": 18,
+        "ticks_font_size": 16,
+        "marker": "o",          # marker for the SVDs
+        "marker_size": 3        # marker size for the SVDs
+    },
+
+    "cov_topomap":              # Args for plotting topomap of the cov diagonal
+    {
+        "ch_type": null,
+        "scalings": "TO_SET",   # Will be set equal to compute_covariance['scalings'] in the code
+        "proj": false,
+        "noise_cov": null,
+        "sensors": true,
+        "show_names": false,
+        "mask": null,
+        "mask_params": null,
+        "contours": 0,
+        "outlines": "head",
+        "sphere": null,
+        "image_interp": "cubic",
+        "extrapolate": "auto",
+        "border": "mean",
+        "res": 300,             # Image resolution: nmbr of pixels along each side
+        "size": 4,              # Length of a subplot(???) in inches
+        "cmap": "jet",          # Variants: 'hot', "RdBu_r"; 'jet'
+        "vlim": [0, null],
+        "cnorm": null,
+        "colorbar": true,
+        "cbar_fmt": "%.1e",
+        "units": "T^2",
+        "axes": null,
+        "show": true
+    },
+
+    "org_cov_topo_clim": [5.0e-27, 9.0e-26],  # 006, org cov topomap
+
+    "adjust_topo_plot":             # Additional parms for COV plot
+    {
+        "title": null,              # or null to use default
+        "clim": [5.0e-28, 9.0e-27], # pseudoZ = 9, so use limits scaled down by 10 
+        "figsize": [8, 6],
+        "title_font_size": 18,
+        "axis_title_font_size": 18,
+        "ticks_font_size": 16,
+        "yshift": 0.07              # If not null, shift the plot up (rel to figure size)
+    }
+}
+

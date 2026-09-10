@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# === AM ====
+# Editor swap files
+*.swp
+# pictures
+*.png
+# Resulting cov
+*swn-cov.fif
+
